@@ -3,12 +3,12 @@ from time import time
 from typing import Dict
 
 
-JWT_SECRET = "deff1952d59f883ece260e8683fed21ab0ad9a53323eca4f"
+JWT_SECRET = "843c3415-a4f5-4b05-8601-d8c827fb0e9d"
 JWT_ALGORITHM = "HS256"
 
 
 def get_full_token(user) -> Dict[str, str]:
-    payload = {"sub": str(user.id),
+    payload = {"sub": user.id,
                "email": user.email,
                "exp": time() + (60 * 60 * 24),
                "iss": "AuthenticationPython",
@@ -18,7 +18,7 @@ def get_full_token(user) -> Dict[str, str]:
 
 
 def decode_token(token: str) -> dict:
-    decoded_token = decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+    decoded_token = decode(token, JWT_SECRET, audience="AuthenticationPython", algorithms=[JWT_ALGORITHM])
     return decoded_token if decoded_token["exp"] >= time() else None
 
 

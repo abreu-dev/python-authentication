@@ -32,7 +32,7 @@ async def register(register_user_model: RegisterUserModel):
         return JSONResponse(status_code=HTTP_400_BAD_REQUEST,
                             content={"errors": validation_result.errors})
 
-    user = User(id=uuid4(),
+    user = User(id=str(uuid4()),
                 email=register_user_model.email,
                 username=register_user_model.username,
                 password=register_user_model.password)
